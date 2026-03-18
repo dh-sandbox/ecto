@@ -22,6 +22,7 @@ jobs:
           - elixir: "1.19.5"
             otp: "28.4"
             lint: lint
+            coverage: coverage
           - elixir: "1.18.1"
             otp: "27.2"
           - elixir: "1.17.3"
@@ -59,7 +60,17 @@ jobs:
         run: mix compile --warning-as-errors
         if: ${{ matrix.lint }}
       - name: Run tests
+        if: ${{ !matrix.coverage }}
         run: mix test
+      - name: Run tests with coverage
+        if: ${{ matrix.coverage }}
+        run: mix lcov
+      - name: Upload coverage to Qlty
+        if: ${{ matrix.coverage }}
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: cover/lcov.info
 
   integration-test:
     name: integration test

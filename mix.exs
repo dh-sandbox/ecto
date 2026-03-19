@@ -12,6 +12,7 @@ defmodule Ecto.MixProject do
       deps: deps(),
       consolidate_protocols: Mix.env() != :test,
       elixirc_paths: elixirc_paths(Mix.env()),
+      test_coverage: [tool: LcovEx],
 
       # Hex
       description: "A toolkit for data mapping and language integrated query for Elixir",

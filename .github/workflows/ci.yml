@@ -64,7 +64,7 @@ jobs:
         run: mix test
       - name: Run tests with coverage
         if: ${{ matrix.coverage }}
-        run: mix lcov
+        run: mix test --cover
       - name: Upload coverage to Qlty
         if: ${{ matrix.coverage }}
         uses: qltysh/qlty-action/coverage@v2
